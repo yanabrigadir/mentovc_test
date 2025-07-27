@@ -3,7 +3,7 @@ from uuid import UUID as BASE_UUID, uuid4
 from db.base import Base
 from datetime import datetime, UTC
 
-from sqlalchemy import BigInteger, DateTime, ForeignKey, Integer, String
+from sqlalchemy import DateTime, String
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -12,7 +12,7 @@ class Company(Base):
     __tablename__ = "companies"
 
     id: Mapped[BASE_UUID] = mapped_column(UUID, primary_key=True, default=uuid4)
-    name: Mapped[str] = mapped_column(String, nullable=False)
+    name: Mapped[str] = mapped_column(String, unique=True, nullable=False)
     location: Mapped[str] = mapped_column(String, nullable=False)
     description: Mapped[str] = mapped_column(String, nullable=False)
     link: Mapped[str] = mapped_column(String, nullable=False)
