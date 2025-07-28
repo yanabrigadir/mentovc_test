@@ -1,16 +1,23 @@
-import re
-from playwright.async_api import async_playwright
 import asyncio
-from bs4 import BeautifulSoup
 import logging
+
+from db.database import async_session_maker
+from services.company_service import CompanyService
 from services.stream_scraper_service import StreamScraperService
 
 
 async def main():
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-    scraper = StreamScraperService()
-    await scraper.parse_ycombinator_site()
+    company_service = CompanyService(async_session_maker)
+    scraper = StreamScraperService(company_service)
+
+    while True:
+        try:
+            await scraper.parse_ycombinator_site()
+        except Exception as e:
+            logging.error(f"Error in scraper: {e}")
+            await asyncio.sleep(3)
 
 
 if __name__ == "__main__":
