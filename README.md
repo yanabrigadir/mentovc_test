@@ -48,7 +48,7 @@
        }
    ]
    ```
-   Export cookies from a logged-in LinkedIn session (e.g., via browser extension) and convert using the `convert_cookie` function in `main.py`.
+   Export cookies from a logged-in LinkedIn session (e.g., via browser extension).
 
 3. **Set Up Database**:
    Ensure PostgreSQL is running and accessible with `.env` credentials. Create the database schema (handled by `company_service.py`).
